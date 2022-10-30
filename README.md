@@ -23,3 +23,4 @@ Please cite as [[1]](https://openreview.net/forum?id=7ObvucmbjMM).
 ```
 
 ## License
+The dataset is licensed under [CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/legalcode), see the [LICENSE](data/LICENSE) file for the dataset section. The code in this repository is licenced under the [CC-BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode) ([LICENSE](LICENSE)) .
