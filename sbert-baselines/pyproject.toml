@@ -2,7 +2,7 @@
 name = "semi_claim"
 version = "0.1.0"
 description = ""
-authors = ["Momchil Hardalov <hardalov@fmi.uni-sofia.bg""]
+authors = ["Momchil Hardalov <hardalov@fmi.uni-sofia.bg"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
