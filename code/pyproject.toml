@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "semi_claim"
+name = "crowdchecked"
 version = "0.1.0"
 description = ""
-authors = ["Momchil Hardalov <hardalov@fmi.uni-sofia.bg"]
+authors = ["Momchil Hardalov <hardalov@fmi.uni-sofia.bg>", "Anton Chernyavskiy <acherniavskii@hse.ru>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"

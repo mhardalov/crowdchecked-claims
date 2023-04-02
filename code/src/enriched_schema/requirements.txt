@@ -1,0 +1,12 @@
+pandas==1.1.4
+sentence_transformers==0.3.5.1
+trectools==0.0.44
+faiss==1.6.3
+transformers==3.0.2
+nltk==3.5
+tqdm==4.54.1
+pyltr==0.2.6
+numpy==1.19.5
+torch==1.2.0
+audtorch==0.6.4
+scikit_learn==1.0.2

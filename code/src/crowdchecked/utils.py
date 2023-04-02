@@ -217,6 +217,11 @@ def parse_args():
     parser.add_argument("--logging_steps", type=int, default=0, help="Log every X updates steps.")
     parser.add_argument("--no_cuda", action="store_true", help="Avoid using CUDA when available")
     parser.add_argument(
+        "--use_cross_entropy",
+        action="store_true",
+        help="Use cross entropy loss instead of Multiple Negatives Ranking loss.",
+    )
+    parser.add_argument(
         "--overwrite_output_dir",
         action="store_true",
         help="Overwrite the content of the output directory",

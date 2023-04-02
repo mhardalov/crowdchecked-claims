@@ -7,10 +7,7 @@ The model we get works well for duplicate questions mining and for duplicate que
 """
 import json
 import logging
-import os
 from collections import defaultdict
-from datetime import datetime
-from pathlib import Path
 
 import pandas as pd
 from sentence_transformers import SentenceTransformer, evaluation, losses, util
@@ -18,10 +15,8 @@ from sentence_transformers.readers import InputExample
 from sklearn.metrics.pairwise import cosine_distances
 from torch.utils.data import DataLoader
 
-from semi_claim.data import load_vclaims, read_dataset
-from semi_claim.utils import CustomJSONEncoder, configure_logging, parse_args, set_seed
-
-#### Just some code to print debug information to stdout
+from crowdchecked.data import load_vclaims, read_dataset
+from crowdchecked.utils import CustomJSONEncoder, configure_logging, parse_args, set_seed
 
 logger = logging.getLogger(__name__)
 
@@ -79,7 +74,17 @@ def trainer(args):
         logger.info("Loaded %d training examples", len(train_samples))
         # After reading the train_samples, we create a DataLoader
         train_dataloader = DataLoader(train_samples, shuffle=True, batch_size=args.train_batch_size)
-        train_loss = losses.MultipleNegativesRankingLoss(model)
+        if args.use_cross_entropy:
+            train_loss = losses.SoftmaxLoss(
+                model,
+                sentence_embedding_dimension=model.get_sentence_embedding_dimension(),
+                num_labels=2,
+                concatenation_sent_rep=True,
+                concatenation_sent_difference=True,
+                concatenation_sent_multiplication=False,
+            )
+        else:
+            train_loss = losses.MultipleNegativesRankingLoss(model)
 
         ################### Development  Evaluators ##################
         evaluators = []
@@ -145,9 +150,6 @@ def trainer(args):
         seq_evaluator = evaluation.SequentialEvaluator(
             evaluators, main_score_function=lambda scores: scores[-1]
         )
-
-        # logger.info("Evaluate model without training")
-        # seq_evaluator(model, epoch=0, steps=0, output_path=str(model_save_path))
 
         warmup_steps = int(len(train_dataloader) * args.warmup_proportion * args.num_train_epochs)
         # Train the model
